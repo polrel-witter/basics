@@ -38,9 +38,9 @@ function sortAndFindUnique(str: string): boolean {
 }
 
 // Test cases
-console.log(sortAndFindUnique("hel"));     // "ehlo"
-console.log(sortAndFindUnique("typescript")); // "ceiprst"
-console.log(sortAndFindUnique("aaa"));       // "a"
-console.log(sortAndFindUnique(""));          // ""
+console.log(sortAndFindUnique("hel"));
+console.log(sortAndFindUnique("typescript"));
+console.log(sortAndFindUnique("aaa"));
+console.log(sortAndFindUnique(""));
 console.log(sortAndFindUnique("82d8cde009a54b95969145d1d6947a24"));
 console.log(sortAndFindUnique("well here we go"));
