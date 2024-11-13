@@ -54,6 +54,6 @@ function oneAway(str1: string, str2: string): boolean {
 
 // test cases
 console.log(oneAway("welp", "well"));
-console.log(oneAway("hello", "heol"));
+console.log(oneAway("hello", "helwol"));
 console.log(oneAway("pale", "pales"));
 console.log(oneAway("fun", "continue"));
