@@ -22,7 +22,7 @@
 //
 // optimization:
 //
-// a more efficient method would be to move the value as you convert the indices, which would just make the runtime O(n) by having to iterate over the entire matrix once. Otherwise, you're looking at O(n^2) by having to implement a lookup and insert algo.
+// O(n^2) is the best runtime we can meet on this one.
 //
 //  since we're not making any changes to the pixels themselves, we're just going to define Pixel as a number, so we can better track the indicies shifts.
 //
