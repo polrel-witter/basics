@@ -51,4 +51,3 @@ const image: number[][] = [
 ];
 
 console.log(rotateMatrix90(image));
-
