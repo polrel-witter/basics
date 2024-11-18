@@ -22,6 +22,7 @@
 //
 // The runtime is O(n) as it just has to iterate over one of the strings
 //
+//
 function isSubstring(str1: string, str2: string): boolean {
     const len1 = str1.length
     const len2 = str2.length

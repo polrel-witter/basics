@@ -85,26 +85,3 @@ console.log(crossZeros(matrix));
 // Review:
 //
 // While this works, it's not the best solution as its runtime is O(n^2). You could have implemented something with O(n) or even O(1). Given that you don't need to know the exact location of a zero, all you need to know is whether an entire row or column needs to be zeroed out, you could have implemented a simpler algo that just checks for a zero, and if so, marks that column/row to a boolean true, which is then later used to modify the entire row/column of the same matrix.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
