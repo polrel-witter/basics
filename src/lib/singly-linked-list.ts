@@ -71,12 +71,3 @@ export class SinglyLinkedList<T> {
         console.log(elements.join(" -> "))
     }
 }
-
-// Test cases
-const list = new SinglyLinkedList<number>();
-list.add(1);
-list.add(2);
-list.add(3);
-list.print(); // Output: 1 -> 2 -> 3
-list.remove(2);
-list.print(); // Output: 1 -> 3
