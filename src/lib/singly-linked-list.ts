@@ -20,8 +20,8 @@ export class SinglyLinkedList<T> {
         this.size = 0;
     }
 
-    add(value: T) {
-        // if the head of the value is null, add new node
+    append(value: T) {
+        // if the head of the value is null, add new node at end
         // otherwise, add the value to the next node
         const newSnode = new Snode(value);
 
