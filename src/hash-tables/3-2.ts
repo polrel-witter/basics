@@ -16,7 +16,7 @@
 // "b" > 1
 // "b" > 1
 //
-// obviously there's a collision in our example so we can either account for this or overwrite the previous entry. in this problem, there's no requirement to retain all values, but we should for best practice.
+// obviously there's a collision in our example, but because we're only care about the length of the longest substring, we'll just overwrite existing ones, if this happens.
 //
 function longestSubString(str: string): number {
     const chars = new Set<string>();
