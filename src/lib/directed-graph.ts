@@ -1,13 +1,21 @@
+//// Classes
 // Simple directed graph implementation in Typescript
-//
-class directedGraph<T> {
+class DirectedGraph<T> {
     private nodes: Map<T, Set<T>> = new Map();
 
+    // Node operations
     addNode(value: T): void {
         if (this.nodes.has(value)) {
             throw new Error("Node already exists");
         }
         this.nodes.set(value, new Set<T>());
+    }
+
+    addNodes(nodes: T[]): void {
+        if (!nodes?.length) {
+            throw new Error("Node array is empty or null");
+        }
+        nodes.forEach(node => this.addNode(node));
     }
 
     removeNode(value: T): void {
@@ -20,6 +28,7 @@ class directedGraph<T> {
         this.nodes.delete(value);
     }
 
+    // Edge operations
     addEdge(from: T, to: T): void {
       if (from === to) {
           throw new Error("Nodes cannot point to themselves");
@@ -39,7 +48,7 @@ class directedGraph<T> {
       }
 
       // Check if there's already an edge
-      if (fromChildren.has(to) || toChildren.has(from)) {
+     if (fromChildren.has(to) || toChildren.has(from)) {
           throw new Error("Edge already exists");
       }
 
@@ -77,13 +86,4 @@ class directedGraph<T> {
     }
 }
 
-const graph = new directedGraph<string>();
-graph.addNode("A");
-graph.addNode("B");
-graph.addNode("C");
-graph.addEdge("C", "B");
-graph.addEdge("B", "A");
-graph.addEdge("A", "C");
-graph.removeEdge("A", "C");
-graph.removeNode("A");
-console.log(graph.toString());
+export { DirectedGraph }
