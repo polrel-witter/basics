@@ -99,43 +99,4 @@ class Graph<T> {
     }
 }
 
-
-// TODO
-//  1. Performance Issues
-//  - O(n) lookup for finding nodes (could use Map instead of Array)
-//  - O(E) to check if edge exists
-//  - Linear search for all node operations
-//
-//  2. Missing Features
-//  - No edge weights
-//  - No built-in bidirectional edge support
-//  - No cycle detection
-//  - Missing common algorithms (BFS/DFS)
-//
-//  3. Implementation Gaps
-//  - Limited error handling
-//  - No protection against duplicate edges
-//  - No input validation
-//  - Could benefit from Map/Set for O(1) lookups
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export { Graph, Node }
