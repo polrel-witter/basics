@@ -22,7 +22,7 @@
 import { Graph, Node } from "../lib/adjacency-list-graph";
 
 function findRoute(start: number, end: number): string {
-    const visited: Set<number> = Set();
+    const visited: Set<number> = new Set();
     const route: number[] = [];
 
     if (graph.nodes === null) {
@@ -32,18 +32,17 @@ function findRoute(start: number, end: number): string {
     // Outer loop, checking whether any root nodes match the start of our route
     for (const n of graph.nodes) {
         if (n.value === start) {
-            if (extractRoute(n, [n.value])) {
-                return printRoute(route);
+            if (extractRoute(n, [])) {
+                return printRoute();
             }
         }
     }
 
     // Print the route, if found
-    function printRoute(arr: number[]): string {
-        const result = `${arr[0]}`
-
-        for (let i = 1; i < arr.length; i++) {
-            result.push(`-> ${i}`)
+    function printRoute(): string {
+        let result = `${route[0]}`
+        for (let i = 1; i < route.length; i++) {
+	      		result += ` -> ${route[i]}`
         }
         return result;
     }
@@ -83,5 +82,13 @@ function findRoute(start: number, end: number): string {
 // Test cases
 const graph = new Graph<number>();
 const nodeValues = [1, 2, 3, 4, 5, 6, 7, 8]
-// TODO addNodes to Graph class
 graph.addNodes(nodeValues);
+graph.addEdge(3, 7);
+graph.addEdge(3, 6);
+graph.addEdge(3, 8);
+graph.addEdge(1, 3);
+graph.addEdge(1, 5);
+graph.addEdge(2, 1);
+graph.addEdge(2, 8);
+graph.addEdge(6, 4);
+console.log(findRoute(2, 4));
