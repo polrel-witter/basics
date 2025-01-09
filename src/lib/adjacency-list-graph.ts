@@ -11,7 +11,7 @@ class Node<T> {
 }
 
 class Graph<T> {
-    nodes: Node[];
+    nodes: Node<T>[];
 
     constructor() {
         this.nodes = [];
@@ -19,53 +19,72 @@ class Graph<T> {
 
     // Add/remove
     //
-    addNode(value: T): Node<T> {
-        this.hasNode(value) && throw new Error("Node already exists");
+    addNode(value: T): void {
         const node = new Node(value);
         this.nodes.push(node);
-        return node;
+    }
+
+    addNodes(arr: T[]): void {
+        for (const a of arr) {
+            this.addNode(a);
+        }
     }
 
     removeNode(value: T): void {
-        !this.hasNode(value) && return;
+        if (!this.hasNode(value)) return;
         const index = this.getNodeIndex(value);
-        this.nodes.splice(index, 1);
+        if (index !== null) {
+            this.nodes.splice(index, 1);
+        }
     }
 
-    addEdge(from: T, to: T): void {
-        const index = this.getNodeIndex(from);
-        this.nodes[index].children.push(to);
+    addEdge(start: T, end: T): void {
+        const node = this.hasNode(end) ? this.getNode(end) : new Node(end);
+        const index = this.getNodeIndex(start);
+        if (index === null) {
+            throw new Error(`${start} is not a node`);
+        }
+        this.nodes[index].children.push(node!);
     }
 
-    removeEdge(from: T, to: T): void {
-        !this.hasNode(from) && return;
-        const edges = this.getEdges(from);
-        for (let j = 0; j < edges.length; j++) {
-            if (edges[j] === to) {
-                this.nodes[index].children.splice(j, 1);
+    removeEdge(start: T, end: T): void {
+        if (!this.hasNode(start)) return;
+        const index = this.getNodeIndex(start);
+        const edges = this.getEdges(start);
+        if (edges !== null) {
+            for (let j = 0; j < edges.length; j++) {
+                if (edges[j] === end) {
+                    this.nodes[index!].children.splice(j, 1);
+                }
             }
         }
     }
 
     // Seach
     //
-    getNode(value: T): Node<T> {
+    getNode(value: T): Node<T> | null {
         const index = this.getNodeIndex(value);
-        return this.nodes[index];
+        if (index !== null) {
+            return this.nodes[index];
+        }
+        return null;
     }
 
-    getEdges(value: T): Node<T>[] {
+    getEdges(value: T): Node<T>[] | null {
         const index = this.getNodeIndex(value);
-        return this.nodes[index].children;
+        if (index !== null) {
+            return this.nodes[index].children;
+        }
+        return null;
     }
 
-    getNodeIndex(value: T): number {
-        !this.hasNode(value) && throw new Error("Node does not exists");
+    getNodeIndex(value: T): number | null {
         for (let i = 0; i < this.nodes.length; i++) {
             if (this.nodes[i].value === value) {
                 return i;
             }
         }
+        return null;
     }
 
     // Helper methods
@@ -88,11 +107,13 @@ class Graph<T> {
         return false;
     }
 
-    hasEdge(from: T, to: T): boolean {
-       const children = this.getEdges(from);
-       for (let j = 0; j < children.length; j++) {
-           if (children[j] === to) {
-               return true;
+    hasEdge(start: T, end: T): boolean {
+       const edges = this.getEdges(start);
+       if (edges !== null) {
+           for (let j = 0; j < edges.length; j++) {
+               if (edges[j] === end) {
+                   return true;
+               }
            }
        }
        return false;
