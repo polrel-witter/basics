@@ -16,7 +16,7 @@
 //
 import { Tree, Node } from "../lib/binary-tree";
 
-function buildBinarySearchTree(arr: number[]): Tree<number> {
+export function buildBinarySearchTree(arr: number[]): Tree<number> {
     const tree = new Tree<number>();
 
     function buildMinimalBST(start: number, end: number): Node<number> | null {
