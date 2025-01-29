@@ -48,32 +48,68 @@
 //
 // Flow:
 // + populate the in-degree queue by iterating over the graph, incrementing each node within the queue
-// - add all nodes with in-degree 0 to the queue. e.g. [f, e]
-// - hunt for e's children, which is empty so do nothing
-// - hunt for f's children and decrement their in-degrees: a = 0, b = 0; so [f, e, a, b]
-// - hunt for b's children and dec: d = 1
-// - hunt for a's children and dec: d = 0; so [f, e, a, b, d]
-// - hunt for c's children and dec: c = 0; so [f, e, a, b, d, c]
+// + add all nodes with in-degree 0 to the queue. e.g. [f, e]
+// + hunt for e's children, which is empty so do nothing
+// + hunt for f's children and decrement their in-degrees: a = 0, b = 0; so [f, e, a, b]
+// + hunt for b's children and dec: d = 1
+// + hunt for a's children and dec: d = 0; so [f, e, a, b, d]
+// + hunt for c's children and dec: c = 0; so [f, e, a, b, d, c]
 //
+import { Graph, Node } from "../lib/adjacency-list-graph";
+
 function getBuildOrder(graph: Graph<string>): string[] | string {
     const inDegrees: Map<string, number> = new Map();
+    const queue: string[] = [];
+    const result: string[] = [];
 
-    // Build inDegrees map
-    for (const n of graph.nodes) {
-        if (!n.children) {
-           inDegrees.set(n.value, 0);
-        } else {
-            for (const child of n.children) {
-                if (inDegrees.has(child.value)) {
-                    let count = inDegrees.get(child.value);
-                    inDegrees.set(child.value, count + 1);
-                } else {
-                    inDegrees.set(child.value, 1);
-                }
+      // Initialize all nodes to 0 in-degrees first
+      for (const n of graph.nodes) {
+          inDegrees.set(n.value, 0);
+      }
+
+      // Then increment in-degrees for nodes with incoming edges
+      for (const n of graph.nodes) {
+          for (const child of n.children || []) {
+              inDegrees.set(child.value, inDegrees.get(child.value)! + 1);
+          }
+      }
+
+    // Add nodes with 0 in-degrees to queue
+    for (const [node, degree] of inDegrees) {
+        if (degree === 0) {
+            queue.push(node);
+        }
+    }
+
+    // Process queue
+    while (queue.length > 0) {
+        const current = queue.shift()!;
+        result.push(current);
+
+        // Find the node object to get its children
+        const edges: Node<string>[] | null = graph.getEdges(current);
+        if (edges === null) result.push(current);
+        for (const child of edges!) {
+            const newDegree = inDegrees.get(child.value)! - 1;
+            inDegrees.set(child.value, newDegree);
+            if (newDegree === 0) {
+                queue.push(child.value);
             }
         }
     }
 
-    // loop over map, adding, searching and decrementing nodes with in-degrees = 0
+    // Check if we processed all nodes (no cycles)
+    return result.length === inDegrees.size ? result : "Error: cycle detected";
+}
 
 
+// Test cases
+const graph = new Graph<string>();
+const nodeValues = ['a', 'b', 'c', 'd', 'e', 'f']
+graph.addNodes(nodeValues);
+graph.addEdge('f', 'a')
+graph.addEdge('f', 'b')
+graph.addEdge('d', 'c')
+graph.addEdge('b', 'd')
+graph.addEdge('a', 'd')
+console.log(getBuildOrder(graph));
