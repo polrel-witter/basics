@@ -112,4 +112,6 @@ graph.addEdge('f', 'b')
 graph.addEdge('d', 'c')
 graph.addEdge('b', 'd')
 graph.addEdge('a', 'd')
+graph.addEdge('b', 'c')
+graph.addEdge('f', 'd')
 console.log(getBuildOrder(graph));
