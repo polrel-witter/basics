@@ -5,8 +5,11 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "types": ["jest", "node"]
   },
-  "include": ["*.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
